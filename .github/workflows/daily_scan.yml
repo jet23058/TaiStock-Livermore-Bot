@@ -1,0 +1,37 @@
+name: Daily Stock Scan
+
+on:
+  schedule:
+    # GitHub Actions 使用 UTC 時間
+    # 台灣時間 20:30 = UTC 12:30
+    # Cron 格式: 分 時 日 月 星期
+    - cron: '30 12 * * 1-5' # 週一到週五執行 (若要週末也跑改成 * * 1-7)
+  
+  # 允許手動從網頁觸發 (方便測試)
+  workflow_dispatch:
+
+jobs:
+  scan-and-notify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run Scan Script
+      env:
+        # 設定為 False 以掃描全市場
+        TEST_MODE: "false" 
+        # 從 GitHub Secrets 讀取 Slack Webhook
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        python main.py
