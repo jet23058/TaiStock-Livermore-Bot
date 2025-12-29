@@ -1,0 +1,10 @@
+yfinance
+pandas
+twstock
+tabulate
+colorama
+lxml
+python-dotenv
+requests
+pytest
+pytest-mock
