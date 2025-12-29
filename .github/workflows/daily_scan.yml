@@ -30,7 +30,7 @@ jobs:
     - name: Run Scan Script
       env:
         # 設定為 False 以掃描全市場
-        TEST_MODE: "false" 
+        TEST_MODE: ${{ vars.TEST_MODE }}
         # 從 GitHub Secrets 讀取 Slack Webhook
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       run: |
