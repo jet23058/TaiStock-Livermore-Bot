@@ -3,9 +3,9 @@ name: Daily Stock Scan
 on:
   schedule:
     # GitHub Actions 使用 UTC 時間
-    # 台灣時間 20:30 = UTC 12:30
+    # 台灣時間 14:30 = UTC 12:30
     # Cron 格式: 分 時 日 月 星期
-    - cron: '30 12 * * 1-5' # 週一到週五執行 (若要週末也跑改成 * * 1-7)
+    - cron: '30 6 * * 1-5' # 週一到週五執行
   
   # 允許手動從網頁觸發 (方便測試)
   workflow_dispatch:
